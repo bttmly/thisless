@@ -1,5 +1,13 @@
-enumMaker = (set, name) ->
-  values = Object.keys set
+SimpleSet = require "./simple-set"
+
+setFromIterable = (iterable) ->
+  set = do SimpleSet
+  set.addMaybe(item) for item in iterable
+  set
+
+enumFactory = (iterable, name) ->
+  set = setFromIterable(iterable)
+  values = Object.keys(set)
 
   enum_ =
     check: (val) ->

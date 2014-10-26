@@ -1,5 +1,4 @@
-SimpleSet = require "./simple-set"
-enumMaker = require "./enum-maker"
+enumMaker = require "./enum-factory"
 
 inclusiveRange = (start, stop) ->
   i for i in [start..stop]

@@ -1,15 +1,8 @@
-SimpleSet = require "./simple-set"
-enumMaker = require "./enum-maker"
-
-primitiveSetFromIterable = (iterable) ->
-  storge = SimpleSet()
-  storage.addMaybe(item) for item in iterable
-  storage
+enumFactory = require "./enum-factory"
 
 SimpleEnum = (iterable, name) ->
   name or= "AnonymousSimpleEnum"
-  set = primitiveSetFromIterable(iterable)
-  enumMaker(set, name)
+  enumFactory(iterable, name)
 
 module.exports = SimpleEnum
 
