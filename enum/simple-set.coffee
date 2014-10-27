@@ -2,21 +2,21 @@ isPrimitive = (val) ->
   type = typeof val
   type is "string" or type is "number" or type is "boolean"
 
-SimpleSet = ->
+PrimitiveSet = ->
   storage = Object.create null
   set =
     has: (val) ->
       return !!storage[val]
 
     add: (val) ->
-      return set if addMaybe(val)
-      throw new Error "Set already contains #{val}"
-
-    addMaybe: (val) ->
-      throw new Error("SimpleSet accepts only primitives") unless isPrimitive val
+      throw new Error("SimpleSet accepts only primitives") unless isPrimitive(val)
       return false if set.has val
       storage[val] = true
       true
+
+    addMaybe: (val) ->
+      return set if addMaybe(val)
+      throw new Error "Set already contains #{val}"
 
     remove: (val) ->
       return set if removeMaybe(val)
@@ -27,9 +27,10 @@ SimpleSet = ->
       delete storage[val]
       true
 
-    values: ->
-      Object.keys(storage)
+    size: -> set.values().length
+
+    values: -> Object.keys(storage)
 
   set
 
-module.exports = SimpleSet
+module.exports = PrimitiveSet

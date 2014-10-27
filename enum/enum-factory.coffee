@@ -8,21 +8,16 @@ setFromIterable = (iterable) ->
 enumFactory = (iterable, name) ->
   set = setFromIterable(iterable)
   values = Object.keys(set)
+  instance = (val) ->
+    unless instance.check(val)
+      throw new Error """
+        Enum #{name} doesn't contain #{val}."
+        Enum values: #{Object.keys(set).join " ,"}
+      """
+    val
 
-  enum_ =
-    check: (val) ->
-      set.has(val)
-
-    checkStrict: (val) ->
-      unless enum_.check(val)
-        throw new Error """
-          Enum #{name} doesn't contain #{val}."
-          Enum values: #{Object.keys(set).join " ,"}
-        """
-      true
-
-    values: -> values
-
-  enum_
+  instance.has = (val) -> set.has(val)
+  instance.values = -> values
+  instance
 
 module.exports = enumMaker
