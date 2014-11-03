@@ -16,7 +16,7 @@ Store = (id) ->
 
   instance =
     get: (id) ->
-      return if items[id]? then items[id] else null
+      return if instance.has id then items[id] else null
 
     set: (obj) ->
       id = getId obj
@@ -25,9 +25,12 @@ Store = (id) ->
       else
         instance.insert obj
 
+    has: (id) ->
+      return items[id]?
+
     insert: (obj) ->
       id = getId obj
-      if items[id]?
+      if instance.has id
         throw new Error "Record with id #{id} already in instance."
       items[id] = obj
       size += 1
@@ -35,16 +38,16 @@ Store = (id) ->
 
     update: (obj) ->
       id = getId obj
-      unless items[id]?
+      unless instance.has id
         throw new Error "No record with id #{id} found to update."
       items[id] = obj
       instance
 
     unset: (id) ->
-      if items[id]? then instance.remove id else instance
+      if instance.has id then instance.remove id else instance
 
     remove: (id) ->
-      unless items[id]?
+      unless instance.has id
         throw new Error "No record with id #{id} found to remove"
       delete items[id]
       size -= 1
