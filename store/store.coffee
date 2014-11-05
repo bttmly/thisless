@@ -7,12 +7,12 @@ Store = (id) ->
   size = 0
   emitter = do Emitter
 
-  if not id?
-    getId = -> size + 1
-  if typeof id is "string"
-    getId = (obj) -> obj[id]
-  else
-    getId = id
+  getId = switch typeof id
+    when "function" then id
+    when "string" then (obj) -> obj[id]
+    else do ->
+      counter = 0
+      -> counter += 1
 
   instance =
     get: (id) ->
