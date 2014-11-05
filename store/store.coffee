@@ -26,7 +26,7 @@ Store = (id) ->
         instance.insert obj
 
     has: (id) ->
-      return items[id]?
+      items[id]?
 
     insert: (obj) ->
       id = getId obj
