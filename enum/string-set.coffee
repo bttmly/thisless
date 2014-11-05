@@ -2,14 +2,14 @@ isPrimitive = (val) ->
   type = typeof val
   type is "string" or type is "number" or type is "boolean"
 
-PrimitiveSet = ->
+StringSet = ->
   entries = Object.create null
   set =
     has: (val) ->
       entries[val]?
 
     add: (val) ->
-      throw new Error("SimpleSet accepts only primitives") unless isPrimitive(val)
+      throw new Error("StringSet accepts only primitives") unless isPrimitive(val)
       entries[val] = true
       set
 
@@ -26,4 +26,4 @@ PrimitiveSet = ->
 
   set
 
-module.exports = PrimitiveSet
+module.exports = StringSet

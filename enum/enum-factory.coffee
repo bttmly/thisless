@@ -1,8 +1,8 @@
-SimpleSet = require "./simple-set"
+StringSet = require "./string-set"
 
 setFromIterable = (iterable) ->
-  set = do SimpleSet
-  set.addMaybe(item) for item in iterable
+  set = do StringSet
+  set.add(item) for item in iterable
   set
 
 enumFactory = (iterable, name) ->
